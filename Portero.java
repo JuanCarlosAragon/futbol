@@ -23,6 +23,16 @@ public class Portero extends Jugador
             mentalidad = rnd.nextInt(11);
         }
     }
+    
+    public int getAgilidad()
+    {
+        return agilidad;
+    }
+    
+    public int getMentalidad()
+    {
+        return mentalidad;
+    }
 
     public int valoracion(){
         return ((super.getForma() + agilidad + mentalidad)/3);

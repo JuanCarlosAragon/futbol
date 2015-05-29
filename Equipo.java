@@ -44,23 +44,24 @@ public class Equipo
             }
         }
     }
+
     public double valoracion(){
         return 0.01;
     }
-    public void showInfo(){
-        double valoracionTotal = 0;
-        System.out.println(nombre.toUpperCase());
-        System.out.println("titulares:");
+
+    /**
+     * Devuelve una alineacion titular de jugadores
+     */
+    public ArrayList<Jugador> alinear(){
+        ArrayList<Jugador> alineacion = new ArrayList();
         for(Jugador jugador : jugadores){
             if(jugador instanceof Portero){
-                valoracionTotal += jugador.valoracion();
-                System.out.println(jugador.toString());
+                alineacion.add(jugador);
             }
         }
         for(Jugador jugador : jugadores){
             if(jugador instanceof Lider){
-                valoracionTotal += jugador.valoracion();
-                System.out.println(jugador.toString());
+                alineacion.add(jugador);
             }
         }
         HashSet<Jugador> jugadoresTotales = new HashSet<>();
@@ -73,18 +74,28 @@ public class Equipo
         int cont = 0;
         while(cont < 9){
             Jugador titular = it.next();
-            System.out.println(titular.toString());
-            valoracionTotal += titular.valoracion();
+            alineacion.add(titular);
             cont++;
         }
-        System.out.printf("***************************** MEDIA DE VALORACION DEL EQUIPO TITULAR: %1.2f ******************************************", valoracionTotal/11);
-        System.out.println("\nReservas:");
-        while(it.hasNext()){
-            System.out.println(it.next().toString());
-        }
-        System.out.println("\n\n");
+        return alineacion;
     }
     
+    /**
+     * Devuelve la plantilla de jugadores
+     */
+    public ArrayList<Jugador> getPlantilla()
+    {
+        return jugadores;
+    }
+    
+    /**
+     * Devuelve el nombre del equipo
+     */
+    public String getNombre()
+    {
+        return nombre;
+    }
+
     /**
      * Entrena al equipo. Existe una probabilidad de que alguno de los jugadores mejore su estado de forma.
      */
@@ -107,22 +118,6 @@ public class Equipo
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

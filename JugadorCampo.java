@@ -33,6 +33,21 @@ public class JugadorCampo extends Jugador
         }
     }
 
+    public int getPases()
+    {
+        return pases;
+    }
+
+    public int getRegate()
+    {
+        return regate;
+    }
+
+    public int getRemate()
+    {
+        return remate;
+    }
+
     public int valoracion(){
         return ((super.getForma() + pases + regate + remate)/4);
     }

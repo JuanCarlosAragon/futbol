@@ -27,6 +27,11 @@ public class Lider extends JugadorCampo
     }
     }
     
+    public int getLiderazgo()
+    {
+        return liderazgo;
+    }
+    
     public int valoracion(){
        return super.valoracion() + liderazgo;
     }

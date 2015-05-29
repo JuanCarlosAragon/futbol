@@ -6,5 +6,6 @@ public class Test
         Equipo equipo2 = new Equipo("CASADOS", 15);
         Partido miPartido = new Partido(equipo1, equipo2);
         miPartido.mostrarAlineaciones();
+        miPartido.simular();
     }
 }
