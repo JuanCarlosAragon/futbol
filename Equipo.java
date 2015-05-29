@@ -22,15 +22,25 @@ public class Equipo
         Random rnd = new Random();
         int clave = rnd.nextInt(numJugadores - 1) + 1;
         jugadores = new ArrayList<>();
+        int crack = rnd.nextInt(numJugadores*2);
+        boolean esCrack = false;
         for (int i = 1; i<=numJugadores; i++){
+            if(i == crack)
+            {
+                esCrack = true;
+            }
+            else
+            {
+                esCrack = false;
+            }
             if(i==1){
-                jugadores.add(new Portero(i));
+                jugadores.add(new Portero(i, esCrack));
             }
             else if(i == clave){
-                jugadores.add(new Lider(i));
+                jugadores.add(new Lider(i, esCrack));
             }
             else{
-                jugadores.add(new JugadorCampo(i));
+                jugadores.add(new JugadorCampo(i, esCrack));
             }
         }
     }
@@ -73,6 +83,28 @@ public class Equipo
             System.out.println(it.next().toString());
         }
         System.out.println("\n\n");
+    }
+    
+    /**
+     * Entrena al equipo. Existe una probabilidad de que alguno de los jugadores mejore su estado de forma.
+     */
+    public void entrenar()
+    {
+        Random rand = new Random();
+        // Representa el esfuerzo del jugador. Si el esfuerzo es mayor que el estado de forma, la forma aumentara en uno
+        int esfuerzo;
+        int forma;
+        for(int i = 0; i < jugadores.size(); i++)
+        {
+            esfuerzo = rand.nextInt(11);
+            forma = jugadores.get(i).getForma();
+            // Si es mayor, aumenta la forma en uno
+            if (esfuerzo > forma)
+            {
+                forma++;
+                jugadores.get(i).setForma(forma);
+            }
+        }
     }
 }
 

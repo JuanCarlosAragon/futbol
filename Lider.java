@@ -8,15 +8,23 @@ import java.util.Random;
 public class Lider extends JugadorCampo
 {
     private int liderazgo;
+    public static final int MAX_LIDERAZGO = 5;
 
     /**
      * Constructor for objects of class Lider
      */
-    public Lider(int dorsal)
+    public Lider(int dorsal, boolean crack)
     {
-        super(dorsal);
+        super(dorsal, crack);
         Random rnd = new Random();
-        liderazgo = rnd.nextInt(5);
+        if(crack)
+        {
+            liderazgo = MAX_LIDERAZGO;
+        }
+        else
+        {
+        liderazgo = rnd.nextInt(6);
+    }
     }
     
     public int valoracion(){

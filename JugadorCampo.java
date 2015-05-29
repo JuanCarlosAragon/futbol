@@ -7,24 +7,36 @@ import java.util.Random;
  */
 public class JugadorCampo extends Jugador
 {
-   private int pases;
-   private int regate;
-   private int remate;
+    private int pases;
+    private int regate;
+    private int remate;
+    public static final int MAX_CARACTERISTICA = 10;
 
     /**
      * Constructor for objects of class JugadorCampo
      */
-    public JugadorCampo(int dorsal)
+    public JugadorCampo(int dorsal, boolean crack)
     {
-        super(dorsal);
+        super(dorsal, crack);
         Random rnd = new Random();
-        pases = rnd.nextInt(10);
-        regate = rnd.nextInt(10);
-        remate = rnd.nextInt(10);
+        if(crack)
+        {
+            pases = MAX_CARACTERISTICA;
+            regate = MAX_CARACTERISTICA;
+            remate = MAX_CARACTERISTICA;
+        }
+        else
+        {
+            pases = rnd.nextInt(11);
+            regate = rnd.nextInt(11);
+            remate = rnd.nextInt(11);
+        }
     }
+
     public int valoracion(){
         return ((super.getForma() + pases + regate + remate)/4);
     }
+
     public String toString(){
         return super.toString() + "\tPases: " + pases + "\tRegate: " + regate + "\tRemate: " + remate + "\tValoracion: " + valoracion() + "\t";
     }
