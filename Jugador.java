@@ -53,7 +53,7 @@ public abstract class Jugador
     public int getDorsal(){
         return dorsal;
     }
-    
+
     public void setForma(int nuevaForma){
         if(nuevaForma > 10)
         {
@@ -70,4 +70,22 @@ public abstract class Jugador
     }
 
     public abstract int valoracion();
+
+    /**
+     * Entrena al jugador. SI el nivel de esfuerzo esta por encima de su forma fisica, esta mejorara.
+     */
+    public void entrenar()
+    {
+        Random rand = new Random();
+        // Representa el esfuerzo del jugador. Si el esfuerzo es mayor que el estado de forma, la forma aumentara en uno
+        int esfuerzo = rand.nextInt(11);
+        int forma = getForma();
+        // Si es mayor, aumenta la forma en uno
+        if (esfuerzo > forma)
+        {
+            forma++;
+            setForma(forma);
+        }
+    }
 }
+

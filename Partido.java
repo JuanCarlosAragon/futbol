@@ -86,12 +86,29 @@ public class Partido
         }
         System.out.println("\n\n");
     }
+    
+    /**
+     * Devuelve el equipo local
+     */
+    public Equipo getLocal()
+    {
+        return equipoLocal;
+    }
+    
+    /**
+     * Devuelve el equipo visitante
+     */
+    public Equipo getVisitante()
+    {
+        return equipoVisitante;
+    }
 
     /**
      * Simula el resultado de un partido. El partido se resolvera por un sistema de puntos, que
      * depende de las caracteristicas de los jugadores.
+     * @return 0 si es empate, 1 para victoria local, 2 para victoria visitante
      */
-    public void simular()
+    public int simular()
     {
         int visitante = 0;
         int local = 0;
@@ -144,6 +161,17 @@ public class Partido
         // Los goles marcados por cada equipo seran los puntos que hayan obtenido
         String resultado = equipoLocal.getNombre().toUpperCase() + ": " + local + " - " + equipoVisitante.getNombre().toUpperCase() + ": " + visitante;
         System.out.println(resultado);
+        // Devuelve el resultado
+        int codResultado = 0;
+        if (local > visitante)
+        {
+            codResultado = 1;
+        }
+        else if (visitante > local)
+        {
+            codResultado = 2;
+        }
+        return codResultado;
     }
 
     /**

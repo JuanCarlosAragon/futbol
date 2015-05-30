@@ -101,20 +101,9 @@ public class Equipo
      */
     public void entrenar()
     {
-        Random rand = new Random();
-        // Representa el esfuerzo del jugador. Si el esfuerzo es mayor que el estado de forma, la forma aumentara en uno
-        int esfuerzo;
-        int forma;
         for(int i = 0; i < jugadores.size(); i++)
         {
-            esfuerzo = rand.nextInt(11);
-            forma = jugadores.get(i).getForma();
-            // Si es mayor, aumenta la forma en uno
-            if (esfuerzo > forma)
-            {
-                forma++;
-                jugadores.get(i).setForma(forma);
-            }
+            jugadores.get(i).entrenar();
         }
     }
 }
