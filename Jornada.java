@@ -36,7 +36,7 @@ public class Jornada
      * Simula los partidos de la jornada y devuelve los resultados.
      * @return Los resultados de los partidos
      */
-    public HashMap<Equipo,Integer> sumularJornada()
+    public HashMap<Equipo,Integer> simularJornada()
     {
         HashMap<Equipo,Integer> resultados = new HashMap();
         for(int i = 0; i < partidos.size(); i++)
@@ -59,6 +59,17 @@ public class Jornada
 
         }
         return resultados;
+    }
+    
+    /**
+     * Muestra los emparejamientos de esta jornada
+     */
+    public void showInfo()
+    {
+        for(int i = 0; i < partidos.size(); i++)
+        {
+           partidos.get(i).showInfo();
+        }
     }
 
     /**

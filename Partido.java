@@ -30,6 +30,14 @@ public class Partido
         showInfoLocal();
         showInfoVisitante();
     }
+    
+    /**
+     * Muestra el emparejamiento del partido
+     */
+    public void showInfo()
+    {
+        System.out.println(equipoLocal.getNombre() + " - " + equipoVisitante.getNombre());
+    }
 
     /**
      * Muestra la informacion del equipo local
@@ -268,7 +276,7 @@ public class Partido
     }
     
      /**
-     * Devuelve la liderazgo del portero de la alineacion que se pasa como parametro
+     * Devuelve el liderazgo del capitan de la alineacion que se pasa como parametro
      */
     private int getLiderazgo(ArrayList<Jugador> alineacion)
     {

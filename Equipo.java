@@ -20,7 +20,7 @@ public class Equipo
     {
         this.nombre = nombre;
         Random rnd = new Random();
-        int clave = rnd.nextInt(numJugadores - 1) + 1;
+        int clave = rnd.nextInt(numJugadores - 2) + 2;
         jugadores = new ArrayList<>();
         int crack = rnd.nextInt(numJugadores*2);
         boolean esCrack = false;
