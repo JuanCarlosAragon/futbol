@@ -36,9 +36,9 @@ public class Jornada
      * Simula los partidos de la jornada y devuelve los resultados.
      * @return Los resultados de los partidos
      */
-    public HashMap<Equipo,Integer> simularJornada()
+    public HashMap<Equipo,ClasificacionEquipo> simularJornada()
     {
-        HashMap<Equipo,Integer> resultados = new HashMap();
+        HashMap<Equipo,ClasificacionEquipo> resultados = new HashMap();
         for(int i = 0; i < partidos.size(); i++)
         {
             // Simula el partido, lo que devuelve un resultado
@@ -47,20 +47,24 @@ public class Jornada
             switch(rdo)
             {
                 case 0:
-                resultados.put(partido.getLocal(), 1);
-                resultados.put(partido.getVisitante(), 1);
+                // Crea un objeto tipo clasificacion equipo, parametros: puntos, partidos jugados, partidos ganados, partidos empatados, partidos perdidos
+                // goles a favor, goles en contra con la informacion de ESTA jornada, que luego se sumara al total
+                resultados.put(partido.getLocal(), (new ClasificacionEquipo(1, 1, 0, 1, 0, partido.getGolesLocal(), partido.getGolesVisitante())));
+                resultados.put(partido.getVisitante(), (new ClasificacionEquipo(1, 1, 0, 1, 0, partido.getGolesVisitante(), partido.getGolesLocal())));
                 break;
                 case 1:
-                resultados.put(partido.getLocal(), 3);
+                resultados.put(partido.getLocal(), (new ClasificacionEquipo(3, 1, 1, 0, 0, partido.getGolesLocal(), partido.getGolesVisitante())));
+                resultados.put(partido.getVisitante(), (new ClasificacionEquipo(0, 1, 0, 0, 1, partido.getGolesVisitante(), partido.getGolesLocal())));
                 break;
                 case 2:
-                resultados.put(partido.getVisitante(), 3);
+                resultados.put(partido.getLocal(), (new ClasificacionEquipo(0, 1, 0, 0, 1, partido.getGolesLocal(), partido.getGolesVisitante())));
+                resultados.put(partido.getVisitante(), (new ClasificacionEquipo(3, 1, 1, 0, 0, partido.getGolesVisitante(), partido.getGolesLocal())));
             }
 
         }
         return resultados;
     }
-    
+
     /**
      * Muestra los emparejamientos de esta jornada
      */
@@ -68,7 +72,7 @@ public class Jornada
     {
         for(int i = 0; i < partidos.size(); i++)
         {
-           partidos.get(i).showInfo();
+            partidos.get(i).showInfo();
         }
     }
 

@@ -17,7 +17,7 @@ public class Liga
     // El nombre de los equipos sera "equipo" + un numero
     public static final String NOMBRE ="Equipo";
     // Recoje las puntuaciones de cada equipo para hacer la clasificacion
-    private HashMap<Equipo,Integer> clasificacion;
+    private HashMap<Equipo,ClasificacionEquipo> clasificacion;
     // Marca la jornada actual en la que se encuentra la liga
     private int jornadaActual;
 
@@ -42,7 +42,7 @@ public class Liga
             Equipo equipo = new Equipo(NOMBRE + " " + (i + 1), 22);
             equipos.add(equipo);
             // Los añade a la vez al diccionario de clasificaciones
-            clasificacion.put(equipo, 0);
+            clasificacion.put(equipo, new ClasificacionEquipo());
         }
         // Genera las jornadas de la liga
         generaJornadas();
@@ -64,7 +64,7 @@ public class Liga
      * Simula las jornadas de la liga indicadas y actualiza la clasificacion.
      * Si se introduce un numero mayor al numero de jornadas, se simularan solo las jornadas que existan
      */
-    public void simulaJornadas(int numero)
+    public void simularJornadas(int numero)
     {
         // Si el numero introducido es mayor que el numero de jornadas que queden, se setea al numero de jornadas
         if((numero + jornadaActual) > (jornadas.size()))
@@ -92,6 +92,7 @@ public class Liga
         int puntosMax = 0;
         Equipo equipoMax = null;
         String clasi = "\nCLASIFICACION DE LA LIGA, JORNADA " + (jornadaActual + 1);
+        clasi += "\nNOMBRE\t\tpuntos\tPJ\tPG\tPE\tPP\tGF\tGC\tGAVG";
         for(int i = 0; i < clasificacion.size(); i++)
         {
             puntosMax = 0;
@@ -101,21 +102,39 @@ public class Liga
                 // Toma los puntos de ese equipo para compararlos, si el equipo aun no se ha mostrado en la clasificacion
                 if(copia.containsKey(equipo))
                 {
-                    int puntosEquipo = clasificacion.get(equipo);
+                    int puntosEquipo = clasificacion.get(equipo).getPuntos();
                     // Si los puntos son mayores o no hay ningun equipo guardado como maximo, lo guarda
                     if(puntosEquipo > puntosMax || equipoMax == null)
                     {
                         puntosMax = puntosEquipo;
                         equipoMax = equipo;
                     }
+                    // Si empatan a puntos, el primer factor de desempate es la diferencia de goles (gol average)
+                    else if (puntosEquipo == puntosMax)
+                    {
+                        if(clasificacion.get(equipo).getDiferenciaDeGoles() > clasificacion.get(equipoMax).getDiferenciaDeGoles())
+                        {
+                            puntosMax = puntosEquipo;
+                            equipoMax = equipo;
+                        }
+                        // El segundo factor de desempate son los goles marcados
+                        else if(clasificacion.get(equipo).getDiferenciaDeGoles() == clasificacion.get(equipoMax).getDiferenciaDeGoles())
+                        {
+                            if(clasificacion.get(equipo).getGolesAFavor() > clasificacion.get(equipoMax).getGolesAFavor())
+                            {
+                                puntosMax = puntosEquipo;
+                                equipoMax = equipo;
+                            }
+                        }
+                    }
                 }
             }
-            clasi += "\n" + equipoMax.getNombre() + " - " + puntosMax;
+            clasi += "\n" + equipoMax.getNombre() + " ->\t" + clasificacion.get(equipoMax).toString();
             copia.remove(equipoMax);
         }
         System.out.println(clasi);
     }
-    
+
     /**
      * Los equipos entrenan
      */
@@ -130,16 +149,15 @@ public class Liga
     /**
      * Actualiza la clasificacion con los puntos recibidos como parametro
      */
-    private void actualizaClasificacion(HashMap<Equipo,Integer> puntos)
+    private void actualizaClasificacion(HashMap<Equipo,ClasificacionEquipo> puntos)
     {
         // Genera un set con las keys para iterar por el hashmap
         Set<Equipo> setEquipos = puntos.keySet();
         for(Equipo equipo: setEquipos)
         {
-            // Toma los puntos antiguos, suma los nuevos y los añade de nuevo al hashMap
-            Integer punt = clasificacion.get(equipo);
-            punt += puntos.get(equipo);
-            clasificacion.put(equipo, punt);
+            // A cada clasificacion del equipo le pasa el resultado en formato ClasificacionEquipo para que la actualize
+            ClasificacionEquipo temporal = clasificacion.get(equipo);
+            temporal.sumaEstadisticas(puntos.get(equipo));
         }
     }
 

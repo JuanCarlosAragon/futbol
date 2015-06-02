@@ -12,6 +12,10 @@ public class Partido
     private Equipo equipoVisitante;
     private ArrayList<Jugador> titularesLocal;
     private ArrayList<Jugador> titularesVisitante;
+    // Guarda los goles marcados por el equipo local
+    private int golesLocal;
+    // Guarda los goles marcados por el equipo suplente
+    private int golesVisitante;
 
     /**
      * Constructor for objects of class Partido
@@ -24,13 +28,16 @@ public class Partido
         titularesVisitante = new ArrayList<>();
         titularesLocal = equipo1.alinear();
         titularesVisitante = equipo2.alinear();
+        // Los goles se setean en -1 por ser valores no validos hasta que se generen
+        golesLocal = -1;
+        golesVisitante = -1;
     }
 
     public void mostrarAlineaciones(){
         showInfoLocal();
         showInfoVisitante();
     }
-    
+
     /**
      * Muestra el emparejamiento del partido
      */
@@ -94,7 +101,7 @@ public class Partido
         }
         System.out.println("\n\n");
     }
-    
+
     /**
      * Devuelve el equipo local
      */
@@ -102,7 +109,7 @@ public class Partido
     {
         return equipoLocal;
     }
-    
+
     /**
      * Devuelve el equipo visitante
      */
@@ -112,70 +119,93 @@ public class Partido
     }
 
     /**
+     * Devuelve los goles del equipo local. Si aun no se ha simulado el partido devolvera -1
+     */
+    public int getGolesLocal()
+    {
+        return golesLocal;
+    }
+
+    /**
+     * Devuelve los goles del equipo visitante. Si aun no se ha simulado el partido devolvera -1
+     */
+    public int getGolesVisitante()
+    {
+        return golesVisitante;
+    }
+
+    /**
      * Simula el resultado de un partido. El partido se resolvera por un sistema de puntos, que
      * depende de las caracteristicas de los jugadores.
      * @return 0 si es empate, 1 para victoria local, 2 para victoria visitante
      */
     public int simular()
     {
-        int visitante = 0;
-        int local = 0;
-        // Compara el sumatorio de pases de ambas alineaciones, da un punto al mejor
-        if(sumaPases(titularesVisitante) > sumaPases(titularesLocal))
+        // Comprueba si el partido ya ha sido simulado, si es asi dara el resultado guardado
+        if(golesLocal == -1 && golesVisitante == -1)
         {
-            visitante++;
+            int visitante = 0;
+            int local = 0;
+            // Compara el sumatorio de pases de ambas alineaciones, da un punto al mejor
+            if(sumaPases(titularesVisitante) > sumaPases(titularesLocal))
+            {
+                visitante++;
+            }
+            else if (sumaPases(titularesVisitante) < sumaPases(titularesLocal))
+            {
+                local++;
+            }
+            // Compara la forma de ambas alineaciones, da un punto al mejor
+            if(sumaForma(titularesVisitante) > sumaForma(titularesLocal))
+            {
+                visitante++;
+            }
+            else if (sumaForma(titularesVisitante) < sumaForma(titularesLocal))
+            {
+                local++;
+            }
+            // Compara la el regate medio de un equipo con la fortalieza mental del portero rival. Si es mayor, da un punto
+            if(sumaRegate(titularesVisitante)/10 > getMentalidad(titularesLocal))
+            {
+                visitante++;
+            }
+            if (sumaRegate(titularesLocal)/10 > getMentalidad(titularesVisitante))
+            {
+                local++;
+            }
+            // Compara el remate medio de cada equipo con la agilidad del protero rival, Si es mayor, da un punto
+            if(sumaRemate(titularesVisitante)/10 > getAgilidad(titularesLocal))
+            {
+                visitante++;
+            }
+            if (sumaRemate(titularesLocal)/10 > getAgilidad(titularesVisitante))
+            {
+                local++;
+            }
+            // Compara el liderazgo, da un punto extra al equipo con mas liderazgo
+            if(getLiderazgo(titularesVisitante) > getLiderazgo(titularesLocal))
+            {
+                visitante++;
+            }
+            else if (getLiderazgo(titularesVisitante) < getLiderazgo(titularesLocal))
+            {
+                local++;
+            }
+            //  guarda los goles de cada equipo
+            golesLocal = local;
+            golesVisitante = visitante;
         }
-        else if (sumaPases(titularesVisitante) < sumaPases(titularesLocal))
-        {
-            local++;
-        }
-        // Compara la forma de ambas alineaciones, da un punto al mejor
-        if(sumaForma(titularesVisitante) > sumaForma(titularesLocal))
-        {
-            visitante++;
-        }
-        else if (sumaForma(titularesVisitante) < sumaForma(titularesLocal))
-        {
-            local++;
-        }
-        // Compara la el regate medio de un equipo con la fortalieza mental del portero rival. Si es mayor, da un punto
-        if(sumaRegate(titularesVisitante)/10 > getMentalidad(titularesLocal))
-        {
-            visitante++;
-        }
-        if (sumaRegate(titularesLocal)/10 > getMentalidad(titularesVisitante))
-        {
-            local++;
-        }
-        // Compara el remate medio de cada equipo con la agilidad del protero rival, Si es mayor, da un punto
-        if(sumaRemate(titularesVisitante)/10 > getAgilidad(titularesLocal))
-        {
-            visitante++;
-        }
-        if (sumaRemate(titularesLocal)/10 > getAgilidad(titularesVisitante))
-        {
-            local++;
-        }
-        // Compara el liderazgo, da un punto extra al equipo con mas liderazgo
-         if(getLiderazgo(titularesVisitante) > getLiderazgo(titularesLocal))
-        {
-            visitante++;
-        }
-        else if (getLiderazgo(titularesVisitante) < getLiderazgo(titularesLocal))
-        {
-            local++;
-        }
-        
         // Los goles marcados por cada equipo seran los puntos que hayan obtenido
-        String resultado = equipoLocal.getNombre().toUpperCase() + ": " + local + " - " + equipoVisitante.getNombre().toUpperCase() + ": " + visitante;
+        String resultado = equipoLocal.getNombre().toUpperCase() + ": " + golesLocal + " \t-\t" + equipoVisitante.getNombre().toUpperCase() + ": " + golesVisitante;
         System.out.println(resultado);
-        // Devuelve el resultado
+        // Devuelve el resultado como 0 empate, 1 victoria local, 2 victoria visitante
         int codResultado = 0;
-        if (local > visitante)
+
+        if (golesLocal > golesVisitante)
         {
             codResultado = 1;
         }
-        else if (visitante > local)
+        else if (golesVisitante > golesLocal)
         {
             codResultado = 2;
         }
@@ -274,8 +304,8 @@ public class Partido
         }
         return portero.getMentalidad();
     }
-    
-     /**
+
+    /**
      * Devuelve el liderazgo del capitan de la alineacion que se pasa como parametro
      */
     private int getLiderazgo(ArrayList<Jugador> alineacion)
