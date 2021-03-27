@@ -120,5 +120,6 @@ public class Jornada
         }
         return compatibles;
         //Comentario
+        //Otro comentario
     }
 }
