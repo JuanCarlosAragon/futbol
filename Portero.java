@@ -7,6 +7,7 @@ public class Portero extends Jugador
 
     /**
      * Constructor for objects of class Portero
+     Hola
      */
     public Portero(int dorsal, boolean crack)
     {
