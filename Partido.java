@@ -14,7 +14,7 @@ public class Partido
     private ArrayList<Jugador> titularesVisitante;
     // Guarda los goles marcados por el equipo local
     private int golesLocal;
-    // Guarda los goles marcados por el equipo suplente
+    // Guarda los goles marcados por el equipo visitante
     private int golesVisitante;
 
     /**
