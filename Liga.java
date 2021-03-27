@@ -206,4 +206,35 @@ public class Liga
             temporal.sumaEstadisticas(puntos_sop.get(equipo));
         }
     }
+	
+	/**
+     * Genera las jornadas para la liga, que seran el numero de equipos - 1. No puede haber emparejamientos iguales en la liga
+     */
+    private void generaJornadas_DESA()
+    {
+        int indice = 1;
+        int index = 1;
+        boolean aniadir = true;
+        Jornada jornada = null;
+        while(indice < (equipos.size() - 1))
+        {
+            // Genera una jornada
+            jornada = new Jornada(equipos);
+            // Comprueba que no exista en el arraylist una incompatible. Si no hay incompatibles la añade
+            aniadir = true;
+            index = 0;
+            while(index >= jornadas.size() && aniadir)
+            {
+                // Si devuelve true, son compatibles y sigue comprobando. En cuanto encuentre uno no compatible termina el bucle
+                aniadir = jornadas.get(index).compatibles(jornada);
+                index++;
+            }
+            // Si la nueva jornada es compatible con todas, se añade
+            if(aniadir)
+            {
+                jornadas.add(jornada);
+                indice++;
+            }
+		}
+	}
 }
