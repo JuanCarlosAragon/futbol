@@ -119,5 +119,6 @@ public class Jornada
             indice++;
         }
         return compatibles;
+        //Comentario
     }
 }
