@@ -15,7 +15,7 @@ public abstract class Jugador
             "J.Ramon", "Fede", "Alberto", "Roberto", "Ruben", "Hector",
             "Mario", "Felipe", "Manuel", "Tomas", "Agustin", "J.Manu", "J.Jesus",
             "Pepe", "Ricardo", "Fer", "Antonio", "Jose", "J.Luis", "David",
-            "Emilio", "Cesar", "German", "Raul", "Pablo"};
+            "Emilio", "Cesar", "German", "Raul", "Juan"};
     private static final int EDAD_MINIMA = 18;
     public static final int MAX_FORMA = 10;
     /**
