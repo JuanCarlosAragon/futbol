@@ -164,7 +164,7 @@ public class Liga
     /**
      * Genera las jornadas para la liga, que seran el numero de equipos - 1. No puede haber emparejamientos iguales en la liga
      */
-    private void generaJornadas_DESA()
+    private void generaJornadas()
     {
         int indice = 0;
         int index = 0;
@@ -177,7 +177,7 @@ public class Liga
             // Comprueba que no exista en el arraylist una incompatible. Si no hay incompatibles la añade
             aniadir = true;
             index = 0;
-            while(index = < jornadas.size() && aniadir)
+            while(index < jornadas.size() && aniadir)
             {
                 // Si devuelve true, son compatibles y sigue comprobando. En cuanto encuentre uno no compatible termina el bucle
                 aniadir = jornadas.get(index).compatibles(jornada);
