@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 /**
- * Write a description of class Liga here.
+ * Write a description of class Liga here. Aca va la descripcion de liga
  * 
  * @author (your name) 
  * @version (a version number or a date)
@@ -149,7 +149,7 @@ public class Liga
     /**
      * Actualiza la clasificacion con los puntos recibidos como parametro
      */
-    private void actualizaClasificacion_SOPORTE(HashMap<Equipo,ClasificacionEquipo> puntos_sop)
+    private void actualizaClasificacion(HashMap<Equipo,ClasificacionEquipo> puntos)
     {
         // Genera un set con las keys para iterar por el hashmap
         Set<Equipo> setEquipos = puntos.keySet();
@@ -157,7 +157,7 @@ public class Liga
         {
             // A cada clasificacion del equipo le pasa el resultado en formato ClasificacionEquipo para que la actualize
             ClasificacionEquipo temporal = clasificacion.get(equipo);
-            temporal.sumaEstadisticas(puntos_sop.get(equipo));
+            temporal.sumaEstadisticas(puntos.get(equipo));
         }
     }
 
