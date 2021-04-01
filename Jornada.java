@@ -3,7 +3,7 @@ import java.util.Collections;
 import java.util.HashMap;
 
 /**
- * Write a description of class Jornada here.
+ * Write a description of class Jornada here. Escribe una descripcion de la clase Jornada.
  * 
  * @author (your name) 
  * @version (a version number or a date)
