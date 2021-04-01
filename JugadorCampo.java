@@ -52,7 +52,7 @@ public class JugadorCampo extends Jugador
         return ((super.getForma() + pases + regate + remate)/4);
     }
 
-    public String toString(){
+    public String toString2(){
         return super.toString() + "\tPases: " + pases + "\tRegate: " + regate + "\tRemate: " + remate + "\tValoracion: " + valoracion() + "\t";
     }
 }
