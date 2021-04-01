@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 /**
- * Write a description of class Liga here.
+ * Write a description of class Liga here. Aca va la descripcion de liga
  * 
  * @author (your name) 
  * @version (a version number or a date)
